@@ -1,5 +1,5 @@
 import unittest
-from src.pelikan import Pelikan
+from pelikan import Pelikan
 
 
 class TestPelikanCases(unittest.TestCase):
