@@ -1,6 +1,7 @@
 import re
 import nbformat
 
+from pathlib import PosixPath
 from traitlets.config import Config
 from nbconvert import NotebookExporter
 from nbconvert.writers import FilesWriter
@@ -38,11 +39,12 @@ class Pelikan:
         exporter = NotebookExporter(config=c)
         return exporter.from_notebook_node(nb)
 
-    def generate_notebook(self):
+    def generate_notebook(self, destination_path=None) -> PosixPath:
         source, resources = self._convert_comment()
 
         fw = FilesWriter()
-        fw.write(source, resources, notebook_name=self.notebook_name)
+        fw.build_directory = destination_path
+        return fw.write(source, resources, notebook_name=self.notebook_name)
 
 
 if __name__ == "__main__":
