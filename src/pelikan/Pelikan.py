@@ -1,5 +1,4 @@
 import re
-import logging
 import nbformat
 
 from traitlets.config import Config
@@ -21,21 +20,44 @@ class CommentRemovalSubCell(Preprocessor):
             return ''
 
 
-def convert_notebook(notebook_path, notebook_name):
-    assert notebook_path is not None
-    assert notebook_name is not None
+class Pelikan:
 
-    with open(notebook_path) as fh:
-        nb = nbformat.reads(fh.read(), nbformat.NO_CONVERT)
+    def __init__(self, notebook_path=None, notebook_name=None):
+        assert notebook_path is not None
+        assert notebook_name is not None
 
-    c = Config()
-    c.NotebookExporter.preprocessors = [CommentRemovalSubCell]
-    exporter = NotebookExporter(config=c)
-    source, resources = exporter.from_notebook_node(nb)
+        self.notebook_name = notebook_name
+        self.notebook_path = notebook_path
 
-    fw = FilesWriter()
-    fw.write(source, resources, notebook_name=notebook_name)
+    def _convert_comment(self):
+        with open(self.notebook_path) as fh:
+            nb = nbformat.reads(fh.read(), nbformat.NO_CONVERT)
+
+        c = Config()
+        c.NotebookExporter.preprocessors = [CommentRemovalSubCell]
+        exporter = NotebookExporter(config=c)
+        return exporter.from_notebook_node(nb)
+
+    def generate_notebook(self):
+        source, resources = self._convert_comment()
+
+        fw = FilesWriter()
+        fw.write(source, resources, notebook_name=self.notebook_name)
+
+
+if __name__ == "__main__":
+    import sys
+
+    assert len(sys.argv) > 2
+
+    notebook_path = sys.argv[1]
+    notebook_name = sys.argv[2]
+
+    pelikan = Pelikan(notebook_path, notebook_name)
+    pelikan.generate_notebook()
+
+    import logging
 
     logging.basicConfig(level=logging.INFO, format='%(levelname)s : %(message)s')
     logging.info("the file '" + notebook_name + "' is ready.")
-    logging.info("use it without comments thanks to pelikan.")
+    logging.info("use it without Python comments, thanks to pelikan.")
