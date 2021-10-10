@@ -6,7 +6,7 @@ class TestPelikanCases(unittest.TestCase):
 
     def test_remove_commennts(self):
         path = 'tests/data/'
-        notebook = path + 'notebook-with-comments.ipynb'
+        notebook = path + 'notebook-comments.ipynb'
         new_notebook_name = 'notebook-without-comments'
         file_extension = '.ipynb'
 
