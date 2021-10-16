@@ -7,7 +7,7 @@ Pelikan lets you convert notebooks to comment-free notebooks. In other words, It
 ## How it works
 
 ```
-$ pip install pelikan==0.0.1
+$ pip install pelikan
 $ pelikan --help
 usage: pelikan [-h] --notebook NOTEBOOK --file_name FILE_NAME
 
