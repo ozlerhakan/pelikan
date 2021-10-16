@@ -5,3 +5,4 @@
 # LICENSE file in the root directory of this source tree.
 
 from .Pelikan import Pelikan
+from .Pelikan import main

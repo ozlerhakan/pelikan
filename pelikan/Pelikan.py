@@ -1,11 +1,13 @@
+import argparse
 import re
-import nbformat
-
+import sys
 from pathlib import PosixPath
-from traitlets.config import Config
+
+import nbformat
 from nbconvert import NotebookExporter
-from nbconvert.writers import FilesWriter
 from nbconvert.preprocessors import Preprocessor
+from nbconvert.writers import FilesWriter
+from traitlets.config import Config
 
 
 class CommentRemovalSubCell(Preprocessor):
@@ -43,23 +45,22 @@ class Pelikan:
         source, resources = self._convert_comment()
 
         fw = FilesWriter()
-        fw.build_directory = destination_path
+        if destination_path:
+            fw.build_directory = destination_path
         return fw.write(source, resources, notebook_name=self.notebook_name)
 
 
-if __name__ == "__main__":
-    import sys
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--notebook",
+        required=True,
+        help="The notebook file we want to remove comments from")
+    parser.add_argument(
+        "--file_name",
+        required=True,
+        help="The name of the newly created comment-free notebook.")
 
-    assert len(sys.argv) > 2
-
-    notebook_path = sys.argv[1]
-    notebook_name = sys.argv[2]
-
-    pelikan = Pelikan(notebook_path, notebook_name)
+    args = parser.parse_args(sys.argv[1:])
+    pelikan = Pelikan(args.notebook, args.file_name)
     pelikan.generate_notebook()
-
-    import logging
-
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s : %(message)s')
-    logging.info("the file '" + notebook_name + "' is ready.")
-    logging.info("use it without Python comments, thanks to pelikan.")
