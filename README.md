@@ -1,4 +1,3 @@
-
 # Pelikan :flamingo:
 
 Pelikan lets you convert notebooks to comment-free notebooks. In other words, It removes Python block and inline comments from source cells in order to point out only source code.

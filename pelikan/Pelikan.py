@@ -64,5 +64,5 @@ def main():
         help="The name of the newly created comment-free notebook.")
 
     args = parser.parse_args(sys.argv[1:])
-    pelikan = Pelikan(args.notebook, args.file_name)
+    pelikan = Pelikan(args.notebook, args.output)
     pelikan.generate_notebook()

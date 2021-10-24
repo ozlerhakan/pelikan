@@ -5,13 +5,13 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pelikan",
-    version="0.0.4",
+    version="0.0.5",
     author="Hakan Ozler",
     author_email="ozler.hakan@gmail.com",
     description="a jupyter notebook tool to make notebooks comment-free",
     long_description=long_description,
     long_description_content_type="text/plain; charset=UTF-8",
-    url="https://github.com/ozlerhakan/palikann",
+    url="https://github.com/ozlerhakan/palikan",
     project_urls={
         "Bug Tracker": "https://github.com/ozlerhakan/pelikan/issues",
     },
