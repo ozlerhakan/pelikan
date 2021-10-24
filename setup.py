@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pelikan",
-    version="0.0.3",
+    version="0.0.4",
     author="Hakan Ozler",
     author_email="ozler.hakan@gmail.com",
     description="a jupyter notebook tool to make notebooks comment-free",

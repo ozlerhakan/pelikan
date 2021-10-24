@@ -54,10 +54,12 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--notebook",
+        "-n",
         required=True,
         help="The notebook file we want to remove comments from")
     parser.add_argument(
-        "--file_name",
+        "--output",
+        "-o",
         required=True,
         help="The name of the newly created comment-free notebook.")
 
